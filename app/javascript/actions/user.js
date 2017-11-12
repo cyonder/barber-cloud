@@ -4,7 +4,7 @@ export const fetchUsers = () => {
     return (dispatch) => {
         axios.get(`/users`)
         .then(response => {
-            console.log("Users: ", response);
+            // console.log("Users: ", response);
         })
         .catch(error => {
             if(error.response.status == 401){
