@@ -1,3 +1,9 @@
+Shop.create!(shop_name: 'Seville',
+             owner_user_id: '1')
+
+Shop.create!(shop_name: 'Lahori',
+             owner_user_id: '4')
+
 User.create!(shop_id: '1',
                role_id: '2',
                first_name: 'Cagdas',
@@ -43,8 +49,37 @@ Role.create!(role_name: 'owner')
 Role.create!(role_name: 'barber')
 Role.create!(role_name: 'frozen')
 
-Shop.create!(shop_name: 'Seville',
-             owner_user_id: '1')
+Service.create!(shop_id: '1',
+           service_name: 'Hair Trim',
+           price: '25',
+           time: '20')
 
-Shop.create!(shop_name: 'Lahori',
-             owner_user_id: '4')
+Service.create!(shop_id: '2',
+           service_name: 'Hair Trim',
+           price: '35',
+           time: '20')
+
+Service.create!(shop_id: '1',
+           service_name: 'Line Up',
+           price: '10',
+           time: '40')
+
+Service.create!(shop_id: '1',
+           service_name: 'Kids Haircut',
+           price: '30',
+           time: '15')
+
+Service.create!(shop_id: '2',
+           service_name: 'Beard Trim',
+           price: '25',
+           time: '20')
+
+Service.create!(shop_id: '2',
+           service_name: 'Haircut',
+           price: '30',
+           time: '30')
+
+Service.create!(shop_id: '1',
+           service_name: 'Haircut',
+           price: '20',
+           time: '30')

@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import BarberAccordion from './BarberAccordion';
-import { fetchBarbers } from "../../actions/barber";
+import { fetchBarbers } from '../../actions/barber';
 
 class BarberList extends Component{
-
     componentDidMount(){
         this.props.fetchBarbers();
     }
 
-    renderBarberList(){
+    renderBarberList = () => {
         let barbers = new Object(this.props.barbers);
 
         return Object.keys(barbers).map((key, index) => {
@@ -36,7 +35,7 @@ class BarberList extends Component{
     };
 }
 
-function mapStateToProps(state){
+const mapStateToProps = (state) => {
     return{
         barbers: state.barbers
     };

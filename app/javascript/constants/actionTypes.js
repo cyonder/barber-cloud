@@ -13,3 +13,9 @@ export const FETCH_BARBERS = 'fetch_barbers';
 export const CREATE_BARBER = 'create_barber';
 export const DELETE_BARBER = 'delete_barber';
 export const UPDATE_BARBER = 'update_barber';
+
+// SERVICES
+export const FETCH_SERVICES = 'fetch_services';
+export const CREATE_SERVICE = 'create_service';
+export const DELETE_SERVICE = 'delete_service';
+export const UPDATE_SERVICE = 'update_service';

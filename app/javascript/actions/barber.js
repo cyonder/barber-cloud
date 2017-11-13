@@ -49,7 +49,6 @@ export const fetchBarbers = () => {
 
 export const createBarber = (barber, callback) => {
     // TODO: Clear form field after submit
-    console.log("barber: ", barber);
     return (dispatch) => {
         return axios.post(`/barbers`, {barber})
             .then(response => {

@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import {
-    fetchBarbers,
-    deleteBarber,
-    updateBarber
-} from '../../actions/barber';
+    fetchServices,
+    deleteService,
+    updateService
+} from '../../actions/service';
 
-class BarberAccordion extends Component{
+class ServiceAccordion extends Component{
     constructor(){
         super();
         this.state = { accordionIsOpen: false };
@@ -41,14 +41,14 @@ class BarberAccordion extends Component{
     }
 
     onDelete = (id) => {
-        this.props.deleteBarber(id, () => {
-            this.props.fetchBarbers();
+        this.props.deleteService(id, () => {
+            this.props.fetchServices();
         });
     }
 
     onSubmit = (values) => {
-        this.props.updateBarber(values, () => {
-            this.props.fetchBarbers();
+        this.props.updateService(values, () => {
+            this.props.fetchServices();
         });
     }
 
@@ -56,48 +56,40 @@ class BarberAccordion extends Component{
         const { handleSubmit } = this.props;
 
         return(
-            <form onSubmit={ handleSubmit(this.onSubmit) }>
-                <div className="columns mb5">
-                    <div className="column h80">
+            <div className="columns">
+                <div className="column">
+                    <form onSubmit={ handleSubmit(this.onSubmit) }>
                         <Field
-                            label="First Name"
-                            name="first_name"
+                            label="Service Name"
+                            name="service_name"
                             component={ this.renderTextField }
                         />
+                        <Field
+                            label="Time"
+                            name="time"
+                            component={ this.renderTextField }
+                        />
+                        <Field
+                            label="Price"
+                            name="price"
+                            component={ this.renderTextField }
+                        />
+                        <button type="submit" className="btn btn-brand mr10">Update</button>
+                        <button
+                            type="button"
+                            className="btn btn-danger"
+                            onClick={ () => this.onDelete(this.props.id) }
+                            >Delete</button>
+                    </form>
+                </div>
+                <div className="column">
+                    <div className="h6 line-behind-text">
+                        <span>Assign Barbers to Service</span>
                     </div>
-                    <div className="column h80">
-                        <Field
-                            label="Last Name"
-                            name="last_name"
-                            component={ this.renderTextField }
-                        />
+                    <div className="">
                     </div>
                 </div>
-                <div className="columns mb5">
-                    <div className="column h80">
-                        <Field
-                            label="Phone Number"
-                            name="phone"
-                            component={ this.renderTextField }
-                        />
-                    </div>
-                    <div className="column h80">
-                        <Field
-                            label="Email"
-                            name="email"
-                            component={ this.renderTextField }
-                        />
-                    </div>
-                </div>
-
-                <button type="submit" className="btn btn-brand mr10">Update</button>
-                <button type="button" className="btn btn-info mr10">Freeze</button>
-                <button
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={ () => this.onDelete(this.props.id) }
-                    >Delete</button>
-            </form>
+            </div>
         );
     }
 
@@ -107,8 +99,10 @@ class BarberAccordion extends Component{
 
         return(
             <div className="accordion">
-                <div className={`h6 accordion-header ${headerClass}`} onClick={ () => this.toggleAccordion() }>
-                    { this.props.first_name + " " + this.props.last_name }
+                <div
+                    className={`h6 accordion-header ${headerClass}`}
+                    onClick={ () => this.toggleAccordion() }>
+                    { this.props.service_name }
                 </div>
                 <div className={`p20 accordion-body ${activeClass}`}>
                     { this.renderForm() }
@@ -121,32 +115,28 @@ class BarberAccordion extends Component{
 const validate = (values) =>{
     const errors = {};
 
-    if(!values.first_name){
-        errors.first_name = "This field is required!";
+    if(!values.service){
+        errors.service = "This field is required!";
     }
 
-    if(!values.last_name){
-        errors.last_name = "This field is required!";
+    if(!values.price){
+        errors.price = "This field is required!";
     }
 
-    if(!values.phone){
-        errors.phone = "This field is required!";
-    }
-
-    if(!values.email){
-        errors.email = "This field is required!";
+    if(!values.time){
+        errors.time = "This field is required!";
     }
 
     return errors;
 };
 
 export default reduxForm({
-    form: 'barberForm',
+    form: 'serviceForm',
     validate: validate,
 })(
     connect(null, {
-        fetchBarbers,
-        deleteBarber,
-        updateBarber
-    })(BarberAccordion)
+        fetchServices,
+        deleteService,
+        updateService
+    })(ServiceAccordion)
 );

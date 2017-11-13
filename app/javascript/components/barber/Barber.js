@@ -17,10 +17,10 @@ class Barber extends Component{
     };
 }
 
-function mapStateToProps(state){
+const mapStateToProps = (state) => {
     return{
         ui: state.ui
-    }
+    };
 }
 
 export default connect(mapStateToProps)(Barber);

@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
-  def index
-  end
+    skip_before_action :authenticate_request, raise: false
+
+    def index
+    end
 end

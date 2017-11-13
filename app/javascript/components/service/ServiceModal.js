@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import {
-    createBarber,
-    fetchBarbers
-} from '../../actions/barber';
-
+    createService,
+    fetchServices
+} from "../../actions/service";
 import { toggleModal } from '../../actions/ui';
 
-class BarberModal extends Component{
+class ServiceModal extends Component{
     constructor(){
         super();
         this.onSubmit = this.onSubmit.bind(this);
@@ -28,8 +27,8 @@ class BarberModal extends Component{
     }
 
     onSubmit = (values) => {
-        this.props.createBarber(values, () => {
-            this.props.fetchBarbers();
+        this.props.createService(values, () => {
+            this.props.fetchServices();
         });
     }
 
@@ -38,23 +37,18 @@ class BarberModal extends Component{
         return(
             <form onSubmit={ handleSubmit(this.onSubmit) }>
                 <Field
-                    label="First Name"
-                    name="first_name"
+                    label="Service Name"
+                    name="service_name"
                     component={ this.renderTextField }
                 />
                 <Field
-                    label="Last Name"
-                    name="last_name"
+                    label="Price"
+                    name="price"
                     component={ this.renderTextField }
                 />
                 <Field
-                    label="Email"
-                    name="email"
-                    component={ this.renderTextField }
-                />
-                <Field
-                    label="Phone"
-                    name="phone"
+                    label="Time"
+                    name="time"
                     component={ this.renderTextField }
                 />
                 <button type="submit" className="btn btn-brand">Add</button>
@@ -69,9 +63,9 @@ class BarberModal extends Component{
                 <div className="modal-overlay"></div>
                 <div className="modal-container">
                     <div className="modal-header">
-                        <div className="modal-title h5">Add Barber</div>
+                        <div className="modal-title h5">Add Service</div>
                         <button
-                            onClick={ () => this.props.toggleModal() } 
+                            onClick={ () => this.props.toggleModal() }
                             className="btn btn-clear float-right"/>
                     </div>
                     <div className="modal-body">
@@ -90,7 +84,7 @@ const mapStateToProps = (state) => {
 }
 
 export default reduxForm({
-    form: 'createBarberForm'
+    form: 'createServiceForm'
 })(
-    connect(mapStateToProps, { createBarber, fetchBarbers, toggleModal })(BarberModal)
+    connect(mapStateToProps, { toggleModal, createService, fetchServices })(ServiceModal)
 );

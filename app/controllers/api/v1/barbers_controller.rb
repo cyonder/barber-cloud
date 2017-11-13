@@ -1,15 +1,11 @@
 class Api::V1::BarbersController < Api::V1::BaseController
-    # TODO: Get current_user.shop_id
-
-    # before_action :authenticate_request, except: [:create]
-
     def index
-        respond_with User.where(:shop_id => "1")
+        respond_with User.where(:shop_id => @current_user.shop_id)
     end
 
     def create
         @barber = User.new(barber_params)
-        @barber.shop_id = '1'
+        @barber.shop_id = @current_user.shop_id
         @barber.role_id = '3'
         @barber.password = '123456789'
 

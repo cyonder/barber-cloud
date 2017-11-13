@@ -13,6 +13,7 @@ import Signup from './authentication/Signup';
 import Signout from './authentication/Signout';
 import Dashboard from './Dashboard';
 import Barber from './barber/Barber';
+import Service from './service/Service';
 
 const AppRoute = ({ component: Component, layout: Layout, ...rest }) => {
     return(
@@ -38,6 +39,7 @@ const Root = ({ store }) => {
                         <AppRoute path="/signout" layout={ HomeLayout } component={ Signout } />
                         <AppRoute path="/dashboard" layout={ AppLayout } component={ RequireAuthentication(Dashboard) } />
                         <AppRoute path="/barbers" layout={ AppLayout } component={ RequireAuthentication(Barber) } />
+                        <AppRoute path='/services' layout={ AppLayout } component={ RequireAuthentication(Service) } />
                     </Switch>
                 </div>
             </BrowserRouter>
