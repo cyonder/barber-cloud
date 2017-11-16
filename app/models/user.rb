@@ -1,6 +1,7 @@
 class User < ApplicationRecord
     has_secure_password
 
+    has_many :barber_services
     belongs_to :role, optional: true
     belongs_to :shop, optional: true
 

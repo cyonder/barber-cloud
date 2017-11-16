@@ -1,21 +1,43 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import { axiosInstance as axios } from '../../constants/axiosInstance';
+import { bindActionCreators } from 'redux';
+
 import {
     fetchServices,
     deleteService,
-    updateService
-} from '../../actions/service';
+    updateService,
+    createBarberServices,
+    deleteBarberServices
+} from "../../actions/service";
 
 class ServiceAccordion extends Component{
-    constructor(){
-        super();
-        this.state = { accordionIsOpen: false };
+    constructor(props){
+        super(props);
+        this.state = {
+            id: this.props.id,
+            accordionIsOpen: false,
+            barbersForServices: []
+        };
 
         this.toggleAccordion = this.toggleAccordion.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onDelete = this.onDelete.bind(this);
+        this.toggleSwitch = this.toggleSwitch.bind(this);
     };
+
+    componentDidMount(){
+        axios.get(`/barber_services/${this.state.id}`)
+            .then(response => {
+                this.setState({
+                    barbersForServices: [...this.state.barbersForServices, ...response.data]
+                });
+            })
+            .catch(error => {
+                console.log("fucking error");
+            })
+    }
 
     toggleAccordion = () => {
         this.setState({ accordionIsOpen: !this.state.accordionIsOpen });
@@ -40,6 +62,36 @@ class ServiceAccordion extends Component{
         );
     }
 
+    renderBarberList = () => {
+        let barbers = new Object(this.props.barbers);
+        let barbersForServices = this.state.barbersForServices;
+
+        return Object.keys(barbers).map((key, index) => {
+            let isChecked = false;
+
+            // TODO: After create_barber_services invoked, or moving between tabs
+            // doesn't invoke fetching. Maybe need to fetch services list again.
+            for(let i = 0; i < barbersForServices.length; i++){
+                if(barbers[key].id === barbersForServices[i].barber_user_id){
+                    isChecked = true;
+                }
+            }
+
+            return(
+                <div className="form-group" key={index}>
+                    <label className="form-switch">
+                        <input
+                            type="checkbox"
+                            defaultChecked={isChecked}
+                            onChange={ (e) => this.toggleSwitch(e, barbers[key].id) } />
+                        <i className="form-icon"></i>
+                        <span>{`${barbers[key].first_name} ${barbers[key].last_name}`}</span>
+                    </label>
+                </div>
+            );
+        });
+    };
+
     onDelete = (id) => {
         this.props.deleteService(id, () => {
             this.props.fetchServices();
@@ -50,6 +102,17 @@ class ServiceAccordion extends Component{
         this.props.updateService(values, () => {
             this.props.fetchServices();
         });
+    }
+
+    toggleSwitch = (event, barber_id) => {
+        let isSwitchedOn = event.target.checked;
+        let service_id = this.state.id;
+
+        if(isSwitchedOn){
+            this.props.createBarberServices(service_id, barber_id);
+        }else{
+            this.props.deleteBarberServices(service_id, barber_id);
+        }
     }
 
     renderForm = () => {
@@ -87,6 +150,7 @@ class ServiceAccordion extends Component{
                         <span>Assign Barbers to Service</span>
                     </div>
                     <div className="">
+                        { this.renderBarberList() }
                     </div>
                 </div>
             </div>
@@ -130,13 +194,26 @@ const validate = (values) =>{
     return errors;
 };
 
+const mapStateToProps = (state) => {
+    return {
+        barbers: state.barbers
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        fetchServices,
+        deleteService,
+        updateService,
+        createBarberServices,
+        deleteBarberServices
+    }, dispatch)
+}
+
+
 export default reduxForm({
     form: 'serviceForm',
     validate: validate,
 })(
-    connect(null, {
-        fetchServices,
-        deleteService,
-        updateService
-    })(ServiceAccordion)
+    connect(mapStateToProps, mapDispatchToProps)(ServiceAccordion)
 );

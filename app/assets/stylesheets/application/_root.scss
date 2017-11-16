@@ -1,4 +1,5 @@
 $color-brand: #42536A; //4E4442 - 242E3B - 2477ED - 42536A
+$color-brand-2: #A73549;
 $color-danger: #DA3849;
 $color-info: #25A2B6;
 $color-white: #F8F9FA;
@@ -13,9 +14,15 @@ body{
   font-weight: 100;
 }
 
-#page{
+#app-layout{
   display: flex;
   min-height: 100vh;
+}
+
+#home-layout{
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 main{
@@ -101,6 +108,22 @@ a{
   }
 }
 
+.btn-brand-2{
+  background: $color-brand-2;
+  color: $color-white;
+  border-color: darken($color-brand-2, 10%);
+
+  &:hover, &:focus, &:active{
+    color: $color-white;
+    background: lighten($color-brand-2, 10%);
+    border-color: darken($color-brand-2, 10%);
+  }
+
+  &:focus{
+    box-shadow: 0 0 0 0.1rem rgba($color-brand, 0.2);
+  }
+}
+
 .btn-danger{
   background: $color-danger;
   color: $color-white;
@@ -131,6 +154,18 @@ a{
   &:focus{
     box-shadow: 0 0 0 0.1rem rgba($color-brand, 0.2);
   }
+}
+
+//----- Cards
+
+.card{
+    margin-bottom: .8rem;
+}
+
+.card-title{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 //----- Forms

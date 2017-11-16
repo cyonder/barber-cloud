@@ -19,3 +19,9 @@ export const FETCH_SERVICES = 'fetch_services';
 export const CREATE_SERVICE = 'create_service';
 export const DELETE_SERVICE = 'delete_service';
 export const UPDATE_SERVICE = 'update_service';
+
+// SHOPS
+export const FETCH_SHOPS = 'fetch_shops';
+
+// BOOKING
+export const FETCH_BOOKING_DETAILS = 'fetch_booking_details';

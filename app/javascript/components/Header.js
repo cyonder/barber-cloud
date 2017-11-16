@@ -5,7 +5,10 @@ import { connect } from 'react-redux';
 class Header extends Component {
     renderButtons = () => {
         if(this.props.authenticated){
-            return <Link to="/signout">Sign out</Link>
+            return [
+                <Link to="/dashboard" className="btn btn-brand-2" key={1}>Dashboard</Link>,
+                <Link to="/signout" key={2}>Sign out</Link>
+            ];
         }else{
             return [
                 <Link to="/signin" key={1}>Sign in</Link>,
@@ -17,10 +20,11 @@ class Header extends Component {
     render(){
         return(
             <header id="navigation">
-                <div id="logo"></div>
+                <Link to="/" id="logo"></Link>
                 <div id="navigation-links">
-                    <Link to="/">Home Page</Link>
-                    <Link to="/dashboard">Dashboard</Link>
+                    <Link to="/">What is Barberate?</Link>
+                    <Link to="/">Support</Link>
+                    <Link to="/">Pricing</Link>
                 </div>
                 <div id="navigation-buttons">
                     { this.renderButtons() }

@@ -1,0 +1,75 @@
+header#navigation{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    z-index: 3;
+    height: 50px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+    // background: rgba(255, 255, 255, 0);
+    background: $color-brand;
+    a{ color: white; }
+    margin-bottom: 20px;
+}
+
+#logo{
+    width: 60px;
+    height: 35px;
+    background-image: url("/images/logo.svg");
+    background-repeat: no-repeat;
+    margin-left: 45px;
+}
+
+#navigation-links > a {
+    font-size: .7rem;
+    margin-right: 25px;
+    &:last-child{ margin-right: 0 }
+}
+
+
+#navigation-buttons{
+    margin-right: 45px;
+    & > a{
+        margin-right: 15px;
+        &:last-child{
+            margin-right: 0;
+        }
+    }
+}
+
+#home{
+    // padding: 20px;
+    // background: #ffffff;
+    min-height: calc(100vh - 50px);
+}
+
+#search-barbershop{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+
+// #index{
+//     display: flex;
+//     flex-direction: row;
+// }
+
+// .card{ margin-right: 20px}
+
+// .shop{
+//     width: 250px;
+//     height: 250px;
+//     box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+//     margin-right: 20px;
+//     position: relative;
+// }
+//
+// .shop-name{
+//     position: absolute;
+//     bottom: 0;
+//     // background: pink;
+//     // background: rgba(0, 0, 0, 0.3);
+//     text-align: center;
+//     width: 250px;
+// }

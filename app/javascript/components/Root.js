@@ -8,6 +8,7 @@ import AppLayout from './layouts/AppLayout';
 
 import RequireAuthentication from './authentication/RequireAuthentication'; // HOC
 import Home from './Home'; // Index page
+import Booking from './booking/Booking';
 import Signin from './authentication/Signin';
 import Signup from './authentication/Signup';
 import Signout from './authentication/Signout';
@@ -37,9 +38,10 @@ const Root = ({ store }) => {
                         <AppRoute path="/signin" layout={ HomeLayout } component={ Signin } />
                         <AppRoute path="/signup" layout={ HomeLayout } component={ Signup } />
                         <AppRoute path="/signout" layout={ HomeLayout } component={ Signout } />
+                        <AppRoute path="/booking/:id" layout={ HomeLayout } component={ Booking } />
                         <AppRoute path="/dashboard" layout={ AppLayout } component={ RequireAuthentication(Dashboard) } />
                         <AppRoute path="/barbers" layout={ AppLayout } component={ RequireAuthentication(Barber) } />
-                        <AppRoute path='/services' layout={ AppLayout } component={ RequireAuthentication(Service) } />
+                        <AppRoute path="/services" layout={ AppLayout } component={ RequireAuthentication(Service) } />
                     </Switch>
                 </div>
             </BrowserRouter>

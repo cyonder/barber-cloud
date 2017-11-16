@@ -6,6 +6,7 @@ import {
     UPDATE_SERVICE
 } from '../constants/actionTypes';
 import { toggleModal } from "./ui"
+import { fetchBarbers } from './barber'
 
 export const fetchServicesSuccess = (services) => {
     return {
@@ -41,6 +42,7 @@ export const fetchServices = () => {
             .then(response => {
                 dispatch( fetchServicesSuccess(response.data) );
             })
+            .then( () => dispatch( fetchBarbers() )) // Need to access barbers.
             .catch(error => {
                 throw(error);
             });
@@ -83,5 +85,23 @@ export const updateService = (service, callback) => {
             .catch(error => {
                 throw(error);
             })
+    }
+}
+
+export const createBarberServices = (service_id, barber_id) => {
+    return (dispatch) => {
+        return axios.post(`/barber_services/${barber_id}/${service_id}`)
+        .catch(error => {
+            throw(error);
+        })
+    }
+}
+
+export const deleteBarberServices = (service_id, barber_id) => {
+    return (dispatch) => {
+        return axios.delete(`/barber_services/${barber_id}/${service_id}`)
+        .catch(error => {
+            throw(error);
+        })
     }
 }

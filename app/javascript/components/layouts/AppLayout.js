@@ -4,7 +4,7 @@ import Navigation from '../Navigation';
 
 const AppLayout = (props) => {
     return(
-        <div id="page">
+        <div id="app-layout">
             <Navigation />
             <main>
                 { props.children }

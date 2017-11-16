@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20171112191145) do
   create_table "shops", force: :cascade do |t|
     t.string "shop_name"
     t.integer "owner_user_id"
+    t.string "shop_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -49,4 +50,11 @@ ActiveRecord::Schema.define(version: 20171112191145) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "barber_services", force: :cascade do |t|
+      t.integer "barber_user_id"
+      t.integer "service_id"
+      t.datetime "created_at", null: false
+      t.datetime "updated_at", null: false
+      t.index ["barber_user_id", "service_id"], name: "index_barber_services_on_barber_user_id_and_service_id"
+    end
 end

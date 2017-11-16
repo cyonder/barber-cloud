@@ -4,9 +4,11 @@ import Header from '../Header';
 
 const HomeLayout = (props) => {
     return(
-        <div>
+        <div id="home-layout">
             <Header />
-            { props.children }
+            <main>
+                { props.children }
+            </main>
         </div>
     )
 }
