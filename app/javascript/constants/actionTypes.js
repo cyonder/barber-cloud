@@ -24,4 +24,5 @@ export const UPDATE_SERVICE = 'update_service';
 export const FETCH_SHOPS = 'fetch_shops';
 
 // BOOKING
-export const FETCH_BOOKING_DETAILS = 'fetch_booking_details';
+export const FETCH_BOOKING_BARBERS = 'fetch_booking_barbers';
+export const FETCH_BOOKING_SERVICES = 'fetch_booking_services';

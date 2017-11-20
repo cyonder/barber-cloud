@@ -3,7 +3,10 @@ import React, { Component } from 'react';
 class ChooseTime extends Component{
     render(){
         return(
-            <div>Choose Time</div>
+            <div className="container">
+                <div className="columns">
+                </div>
+            </div>
         );
     }
 }

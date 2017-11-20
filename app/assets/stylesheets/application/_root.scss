@@ -261,6 +261,34 @@ a{
   border-bottom-right-radius: 5px;
 }
 
+//----- step
+
+.step .step-item a{
+    color: $color-brand;
+
+    &::before{
+        background: $color-brand-2;
+        border-color: #e0e0e0;
+    }
+}
+
+.step .step-item:not(:first-child)::before{
+    background: $color-brand-2;
+}
+
+.step .step-item.active ~ .step-item::before{
+    background-color: darken(#e0e0e0, 10%);
+}
+
+.step .step-item.active ~ .step-item a::before{
+    background: darken(#e0e0e0, 10%);
+}
+
+.step .step-item.active a::before{
+    background-color: #e0e0e0;
+    border-color: $color-brand-2;
+}
+
 //----- Custom General
 
 .h6.line-behind-text {

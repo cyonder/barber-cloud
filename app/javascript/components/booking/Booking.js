@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
+import ChooseShop from './ChooseShop';
 import ChooseBarber from './ChooseBarber';
 import ChooseService from './ChooseService';
 import ChooseTime from './ChooseTime';
 import Reserve from './Reserve';
-
-import { fetchBookingDetails } from '../../actions/booking';
 
 class Booking extends Component{
     constructor(){
@@ -14,17 +14,25 @@ class Booking extends Component{
         this.state = {
             step: 1,
             values: {
-                shop: null,
-                barber: null,
-                service: null,
-                time: null
+                shopID: null,
+                barberID: null,
+                serviceID: null,
+                timeID: null
+            },
+            stepData: {
+                shopName: null,
+                barberName: null,
+                serviceName: null,
+                bookedTime: null
             }
         }
         this.saveValues = this.saveValues.bind(this)
     }
 
-    componentDidMount(){
-        this.props.fetchBookingDetails(this.props.match.params.id);
+    setStep = (step) => {
+        this.setState({
+            step: step
+        })
     }
 
     nextStep = () => {
@@ -39,39 +47,98 @@ class Booking extends Component{
         })
     }
 
-    saveValues = (values) => {
+    saveValues = (values, stepData) => {
         this.setState({
-            values: { ...this.state.values, ...values }
+            values: { ...this.state.values, ...values },
+            stepData: { ...this.state.stepData, ...stepData }
         })
     }
 
-    render(){
+    renderAStep = () => {
         switch(this.state.step){
             case 1:
-                return <ChooseBarber barbers = { this.props.bookingBarbers }
-                                     values = { this.state.values }
-                                     nextStep = { this.nextStep }
-                                     previousStep = { this.previousStep }
-                                     saveValues = { this.saveValues }/>
+                return <ChooseShop values = { this.state.values }
+                                   nextStep = { this.nextStep }
+                                   saveValues = { this.saveValues } />
             case 2:
-                return <ChooseService services = { this.props.bookingServices }
-                                      values = { this.state.values }
-                                      nextStep = { this.nextStep }
-                                      previousStep = { this.previousStep }
-                                      saveValues = { this.saveValues }/>
+                return <ChooseBarber values = { this.state.values }
+                                     nextStep = { this.nextStep }
+                                     saveValues = { this.saveValues } />
             case 3:
-                return <ChooseTime />
+                return <ChooseService values = { this.state.values }
+                                      nextStep = { this.nextStep }
+                                      saveValues = { this.saveValues } />
             case 4:
+                return <ChooseTime />
+            case 5:
                 return <Reserve />
         }
     }
-}
 
-const mapStateToProps = (state) => {
-    return {
-        bookingBarbers: state.booking.barbers,
-        bookingServices: state.booking.services
+    renderStepBar = () => {
+        let activeClass = "step-item active";
+        let step = this.state.step;
+
+        // console.log("values: ", this.state.values);
+        // console.log("stepData: ", this.state.stepData);
+
+        return(
+            <div id="booking-bar">
+                <button className="btn btn-brand" onClick={ this.previousStep }>Previous Step</button>
+                <ul className="step">
+                    <li className={step == 1 ? activeClass : "step-item"}>
+                        <a onClick={ this.state.values.shopID ? () => this.setStep(1) : null }>
+                           { this.state.values.shopID ? this.state.stepData.shopName : "Choose Shop" }
+                        </a>
+                    </li>
+                    <li className={step == 2 ? activeClass : "step-item"}>
+                        <a onClick={ this.state.values.barberID ? () => this.setStep(2) : null }>
+                            { this.state.values.barberID ? this.state.stepData.barberName : "Choose Barber" }
+                        </a>
+                    </li>
+                    <li className={step == 3 ? activeClass : "step-item"}>
+                        <a onClick={ this.state.values.serviceID ? () => this.setStep(3) : null }>
+                            { this.state.values.serviceID ? this.state.stepData.serviceName : "Choose Service" }
+                        </a>
+                    </li>
+                    <li className={step == 4 ? activeClass : "step-item"}>
+                        <a onClick={ this.state.values.timeID ? () => this.setStep(4) : null }>Choose Time</a>
+                    </li>
+                    <li className={step == 5 ? activeClass : "step-item"}>
+                        <a onClick={ () => this.setStep(5) }>Reserve</a>
+                    </li>
+                </ul>
+            </div>
+        );
+    }
+
+    renderSearchBar = () => {
+        return(
+            <div id="booking-bar">
+                    <div className="input-group col-8">
+                        <input type="text" className="form-input" placeholder="Search Barber Shop"/>
+                        <select className="form-select">
+                            <option>Toronto</option>
+                            <option>Montreal</option>
+                            <option>Vancouver</option>
+                            <option>Ottawa</option>
+                            <option>Quebec City</option>
+                        </select>
+                    </div>
+            </div>
+        );
+    }
+
+    render(){
+        let step = this.state.step;
+
+        return(
+            <div>
+                { step == 1 ? this.renderSearchBar() : this.renderStepBar() }
+                { this.renderAStep() }
+            </div>
+        );
     }
 }
 
-export default connect(mapStateToProps, { fetchBookingDetails })(Booking);
+export default Booking;

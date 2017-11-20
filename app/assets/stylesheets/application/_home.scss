@@ -5,11 +5,12 @@ header#navigation{
     width: 100vw;
     z-index: 3;
     height: 50px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+    box-shadow: 0 0 15px rgba(0, 0, 0, .2);
     // background: rgba(255, 255, 255, 0);
     background: $color-brand;
     a{ color: white; }
     margin-bottom: 20px;
+    border-top: 3px solid $color-brand-2;
 }
 
 #logo{
@@ -49,6 +50,17 @@ header#navigation{
     margin-bottom: 20px;
 }
 
+#booking-bar{
+    background: #e0e0e0;
+    justify-content: space-around;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 20px;
+    margin-top: -20px;
+    min-height: 68px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
 
 // #index{
 //     display: flex;

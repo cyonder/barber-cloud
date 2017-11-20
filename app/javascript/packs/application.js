@@ -17,6 +17,7 @@ let store = createStore(rootReducer, compose(
 // Get the token, if the token exist, auto authenticate the user
 const token = localStorage.getItem(AUTHENTICATION_TOKEN);
 if(token){ store.dispatch({ type: AUTHENTICATE_USER }) }
+// TODO: This is good but server authorization needed also.
 
 document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(

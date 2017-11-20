@@ -11,7 +11,8 @@ Rails.application.routes.draw do
           resources :services, only: [:index, :create, :destroy, :update]
           resources :barber_services, only: [:show]
 
-          get 'booking/:id', to: 'booking#getBookingDetails'
+          get 'booking/:shop_id', to: 'booking#fetchBookingBarbers'
+          get 'booking/services/:barber_id', to: 'booking#fetchBookingServices'
 
           post '/barber_services/:barber_id/:service_id', to: 'barber_services#create_barber_services'
           delete '/barber_services/:barber_id/:service_id', to: 'barber_services#destroy_barber_services'

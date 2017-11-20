@@ -1,28 +1,31 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { fetchBookingBarbers } from '../../actions/booking';
 
 class ChooseBarber extends Component{
     constructor(props){
         super(props);
     }
 
-    nextStep = (shop_id, barber_id) => {
-        var data = {
-            shop: shop_id,
-            barber: barber_id
-        }
+    componentDidMount(){
+        this.props.fetchBookingBarbers(this.props.values.shopID);
+    }
 
-        this.props.saveValues(data);
+    handleClick = (barberID, barberName) => {
+        var values = { barberID: barberID }
+        var stepData = { barberName: barberName }
+
+        this.props.saveValues(values, stepData);
         this.props.nextStep();
     }
 
     renderBarbers = () => {
-        let barbers = new Object(this.props.barbers);
+        let barbers = new Object(this.props.bookingBarbers);
 
         return Object.keys(barbers).map((key, index) => {
             return(
-                <div key={index} className="column col-2">
-                    <div onClick={ () => this.nextStep(barbers[key].id, barbers[key].shop_id) } className="card">
+                <div key={index} className="column col-2 c-hand">
+                    <div onClick={ () => this.handleClick(barbers[key].id, barbers[key].first_name + " " + barbers[key].last_name) } className="card">
                         <div className="card-image">
                             <img src="http://fpoimg.com/500x500" className="img-responsive"/>
                         </div>
@@ -46,4 +49,10 @@ class ChooseBarber extends Component{
     }
 }
 
-export default ChooseBarber;
+const mapStateToProps = (state) => {
+    return{
+        bookingBarbers: state.booking.barbers
+    };
+}
+
+export default connect(mapStateToProps, { fetchBookingBarbers })(ChooseBarber);
