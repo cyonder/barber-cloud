@@ -50,7 +50,7 @@ header#navigation{
     margin-bottom: 20px;
 }
 
-#booking-bar{
+#step-bar{
     background: #e0e0e0;
     justify-content: space-around;
     display: flex;
@@ -61,6 +61,73 @@ header#navigation{
     min-height: 68px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
+
+// --- DatePicker
+
+.datePicker{
+    // display: flex;
+    // flex-direction: column;
+    background: $color-brand-2;
+}
+
+.datePicker-wrapper{
+    // background: #F8F9FA;
+    width: 700px;
+    margin: auto;
+}
+
+.datePicker-date-slider{
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: -20px;
+    padding: 10px;
+}
+
+.datePicker-dates{
+    padding-bottom: 10px;
+}
+
+.datePicker-date{
+    display: grid;
+    height: 50px;
+}
+
+.datePicker-time-slider{
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.datePicker-times{
+    padding-bottom: 10px;
+}
+
+.datePicker-next-button{
+    margin: auto;
+    width: 700px;
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+}
+
+.reserve{
+    background: $color-brand-2;
+    padding: 10px;
+    color: white;
+}
+
+// .datePicker-width{
+//     width: 700px;
+// }
+
+// .pd0{
+//     padding: 0;
+//     img{height: 32px; width: 32px}
+// } // In ChooseTime.js
 
 // #index{
 //     display: flex;
